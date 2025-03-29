@@ -16,8 +16,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(to right, #6f4ae6, #000000);
+            background: linear-gradient(to right, #6f4ae6, #000);
             padding: 15px;
+            position: relative;
         }
 
         header img {
@@ -25,24 +26,86 @@
         }
 
         nav {
-            flex-grow: 1;
-            text-align: right;
+            display: flex;
+            gap: 15px;
         }
 
         nav a {
             text-decoration: none;
             color: white;
-            margin: 0 15px;
+            padding: 10px;
+            border-bottom: 1px solid #fff;
             font-size: 18px;
         }
 
         nav a:hover {
             color: #000;
+            background-color: #fff;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
         }
 
         .language-switch {
             color: white;
-            margin-left: 20px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .language-switch button {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .language-switch button:hover {
+            background-color: #6f4ae6;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: #6f4ae6;
+                border-radius: 10px;
+                width: 200px;
+                text-align: center;
+            }
+
+            nav a {
+                font-size: 16px;
+            }
+
+            nav a:hover {
+                background-color: white;
+                color: #6f4ae6;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+            
         }
 
         .hero {
@@ -53,7 +116,7 @@
         }
 
         .hero h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             margin: 0;
             animation: fadeIn 2s ease-in-out;
         }
@@ -108,26 +171,16 @@
             margin: 0;
         }
 
-        .language-switch button {
-            background: none;
-            border: 1px solid white;
-            color: white;
-            padding: 5px 10px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 5px;
-        }
-
-        .language-switch button:hover {
-            background-color: #6f4ae6;
-        }
-
         .section {
             margin-bottom: 50px;
         }
     </style>
     <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('open');
+        }
+
         function switchLanguage(lang) {
             const elements = document.querySelectorAll('[data-lang]');
             elements.forEach(el => {
@@ -136,13 +189,18 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            switchLanguage('es'); // Default to Spanish
+            switchLanguage('es');
         });
     </script>
 </head>
 <body>
     <header>
         <img src="MisofMotors-TransparentBackground.png" alt="Misof Motors Logo">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <nav>
             <a href="#">Inicio</a>
             <a href="#cars">Nuestros Coches</a>
