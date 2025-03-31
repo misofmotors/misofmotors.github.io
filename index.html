@@ -34,13 +34,11 @@
             text-decoration: none;
             color: white;
             padding: 10px;
-            border-bottom: 1px solid #fff;
             font-size: 18px;
         }
 
         nav a:hover {
-            color: #000;
-            background-color: #fff;
+            color: #6f4ae6;
         }
 
         .menu-toggle {
@@ -84,12 +82,15 @@
                 top: 100%;
                 right: 0;
                 background-color: #6f4ae6;
-                border-radius: 10px;
-                width: 200px;
+                width: 100%;
                 text-align: center;
+                padding: 15px 0;
             }
 
             nav a {
+                text-decoration: none;
+                color: white;
+                padding: 15px;
                 font-size: 16px;
             }
 
@@ -178,7 +179,13 @@
     <script>
         function toggleMenu() {
             const nav = document.querySelector('nav');
+            const hero = document.querySelector('.hero');
             nav.classList.toggle('open');
+            if (nav.classList.contains('open')) {
+                hero.style.marginTop = nav.offsetHeight - 1 + 'px';
+            } else {
+                hero.style.marginTop = '0';
+            }
         }
 
         function switchLanguage(lang) {
@@ -190,6 +197,16 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             switchLanguage('es');
+        });
+
+        window.addEventListener('resize', () => {
+            const nav = document.querySelector('nav');
+            const hero = document.querySelector('.hero');
+
+            if (window.innerWidth > 768) {
+                nav.classList.remove('open');
+                hero.style.marginTop = '0';
+            }
         });
     </script>
 </head>
@@ -212,8 +229,8 @@
             <a href="#contact" data-lang="en" style="display: none;">Contact</a>
         </nav>
         <div class="language-switch">
-            <button onclick="switchLanguage('es')">ES</button>
-            <button onclick="switchLanguage('en')">EN</button>
+            <button onclick="switchLanguage('es')">🇪🇸 ES</button>
+            <button onclick="switchLanguage('en')">🇬🇧 EN</button>
         </div>
     </header>
 
